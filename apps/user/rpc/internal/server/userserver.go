@@ -6,6 +6,7 @@ package server
 
 import (
 	"context"
+
 	"im-chat/apps/user/rpc/internal/logic"
 	"im-chat/apps/user/rpc/internal/svc"
 	"im-chat/apps/user/rpc/user"

@@ -10,7 +10,7 @@ image_name="${server_name}-${server_type}-test"
 start() {
     cd ../..
     make -f ./deploy/mk/user-rpc.mk release-test
-    sudo docker run -p 10001:8080 --name=${container_name} --network im-chat_im-chat --link etcd:etcd -d ${image_name}
+    sudo docker run -p 10001:8080 --name=${container_name} --network im-chat_im-chat --link etcd:etcd --link mysql:mysql --link redis:redis -d ${image_name}
 }
 
 stop() {
@@ -24,7 +24,7 @@ restart() {
     sudo docker rm ${container_name}
     sudo docker rmi ${image_name}
     cd ../mk && make -f user-rpc.mk release_test
-    sudo docker run -p 10001:8080 --name=${container_name} --network im-chat_im-chat --link etcd:etcd -d ${image_name}
+    sudo docker run -p 10001:8080 --name=${container_name} --network im-chat_im-chat --link etcd:etcd --link mysql:mysql --link redis:redis -d ${image_name}
 }
 
 action="$1"
@@ -44,4 +44,3 @@ restart)
     exit 1
     ;;
 esac
-

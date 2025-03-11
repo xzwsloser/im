@@ -1,0 +1,36 @@
+// 指定 Api 语法
+syntax = "v1"
+
+info (
+	title:  "user api service"
+	author: "loser"
+)
+
+import (
+	"domain.api"
+)
+
+@server (
+	prefix: v1/user
+	group:  user
+)
+service user {
+	@doc "用户注册"
+	@handler register
+	post /register (RegisterReq) returns (RegisterResp)
+
+	@doc "用户登录"
+	@handler login
+	post /login (LoginReq) returns (LoginResp)
+}
+
+@server (
+	prefix: v1/user
+	group:  user
+	jwt:    JwtAuth
+)
+service user {
+	@doc "获取用户信息"
+	@handler detail
+	get /user (UserInfoReq) returns (UserInfoResp)
+}

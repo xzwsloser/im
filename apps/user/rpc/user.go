@@ -7,6 +7,7 @@ import (
 	"im-chat/apps/user/rpc/internal/server"
 	"im-chat/apps/user/rpc/internal/svc"
 	"im-chat/apps/user/rpc/user"
+	rpcserver "im-chat/pkg/interceptor"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -15,7 +16,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var configFile = flag.String("f", "etc/dev/user.yaml", "the config file")
+var configFile = flag.String("f", "etc/test/user.yaml", "the config file")
 
 func main() {
 	flag.Parse()
@@ -32,6 +33,8 @@ func main() {
 		}
 	})
 	defer s.Stop()
+
+	s.AddUnaryInterceptors(rpcserver.LogInterceptor)
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()

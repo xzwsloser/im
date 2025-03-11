@@ -2,8 +2,12 @@ package logic
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
+	"im-chat/apps/user/models"
 	"im-chat/apps/user/rpc/internal/svc"
 	"im-chat/apps/user/rpc/user"
+	"im-chat/pkg/xerr"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -23,7 +27,32 @@ func NewFindUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FindUser
 }
 
 func (l *FindUserLogic) FindUser(in *user.FindUserReq) (*user.FindUserResp, error) {
-	// todo: add your logic here and delete this line
+	var (
+		userEntity []*models.Users
+		err        error
+	)
 
-	return &user.FindUserResp{}, nil
+	if in.Phone != "" {
+		users, err := l.svcCtx.UserModel.FindByPhone(l.ctx, in.Phone)
+		if err != nil {
+			return nil, errors.Wrapf(xerr.NewDBErr(), "query data from database failed: %v", err)
+		}
+		userEntity = append(userEntity, users)
+	} else if in.Name != "" {
+		userEntity, err = l.svcCtx.UserModel.ListByName(l.ctx, in.Name)
+		if err != nil {
+			return nil, errors.Wrapf(xerr.NewDBErr(), "query data form database failed: %v", err)
+		}
+	} else if len(in.Ids) != 0 {
+		userEntity, err = l.svcCtx.UserModel.ListByIds(l.ctx, in.Ids)
+		if err != nil {
+			return nil, errors.Wrapf(xerr.NewDBErr(), "query data from database failed: %v", err)
+		}
+	}
+
+	var resp []*user.UserEntity
+	copier.Copy(&resp, &userEntity)
+	return &user.FindUserResp{
+		User: resp,
+	}, nil
 }
