@@ -13,6 +13,10 @@ Cache:
     Type: node
     Pass: easy-chat
 
+Redisx:
+  Host: 127.0.0.1:6379
+  
+
 Jwt:
   AccessSecret: im-chat-project
   AccessExpire: 8640000  # 100 天的过期时间

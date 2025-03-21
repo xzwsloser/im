@@ -14,6 +14,11 @@ Cache:
     Type: node
     Pass: "123456"
 
+Redisx:
+  Host: 127.0.0.1:6379
+  Type: node
+  Pass: "123456"
+
 Jwt:
   AccessSecret: im-chat-project
   AccessExpire: 8640000  # 100 天的过期时间
