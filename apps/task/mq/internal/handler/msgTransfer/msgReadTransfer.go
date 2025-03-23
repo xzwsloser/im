@@ -105,7 +105,7 @@ func (m *MsgReadTransfer) Consume(ctx context.Context, key, value string) error 
 		}
 	}
 
-	return m.Transfer(ctx, push)
+	return nil
 }
 
 func (m *MsgReadTransfer) UpdateChatLogRead(ctx context.Context, data *mq.MsgMarkRead) (map[string]string, error) {

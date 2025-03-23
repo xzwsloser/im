@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/jinzhu/copier"
 	"im-chat/apps/user/rpc/user"
+	"im-chat/pkg/constants"
 
 	"im-chat/apps/user/api/internal/svc"
 	"im-chat/apps/user/api/internal/types"
@@ -38,5 +39,9 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 
 	var res types.LoginResp
 	copier.Copy(&res, loginResp)
+
+	// 处理登录业务
+	l.svcCtx.HsetCtx(l.ctx, constants.REDIS_ONLINE_USER, loginResp.Id, "1")
+
 	return &res, nil
 }

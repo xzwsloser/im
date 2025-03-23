@@ -34,3 +34,4 @@ service user {
 	@handler detail
 	get /user (UserInfoReq) returns (UserInfoResp)
 }
+
