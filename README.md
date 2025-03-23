@@ -21,7 +21,7 @@
 
 整个 `im` 系统的消息的收发模型如下:
 
-![image-20250323180129632](/home/loser/.config/Typora/typora-user-images/image-20250323180129632.png)
+![image-20250320201218578](/home/loser/im-chat/docs/image/image-20250320201218578.png)
 
 
 
