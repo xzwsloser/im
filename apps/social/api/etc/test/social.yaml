@@ -8,6 +8,12 @@ SocialRPC:
     - 127.0.0.1:2379
     Key: social.rpc
 
+ImRpc:
+  Etcd:
+    Hosts:
+    - 127.0.0.1:2379
+    Key: im.rpc
+
 UserRPC:
   Etcd:
     Hosts:

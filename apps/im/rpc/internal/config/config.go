@@ -8,4 +8,6 @@ type Config struct {
 		Url string
 		Db  string
 	}
+
+	ImRpc zrpc.RpcClientConf
 }

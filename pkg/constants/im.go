@@ -14,3 +14,11 @@ const (
 	GroupChatType ChatType = iota + 1
 	SingleChatType
 )
+
+// 内容类型: 0. 消息  1. 已读未读
+type ContentType int
+
+const (
+	ContentChatMsg ContentType = iota
+	ContentMarkRead
+)

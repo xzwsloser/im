@@ -1,6 +1,8 @@
 package ws
 
-import "im-chat/pkg/constants"
+import (
+	"im-chat/pkg/constants"
+)
 
 /**
 @Author: loser
@@ -27,11 +29,22 @@ type (
 	Push struct {
 		ConversationId     string `mapstructure:"conversationId"`
 		constants.ChatType `json:"chatType"`
-		SendId             string `mapstructure:"sendId"`
-		RecvId             string `mapstructure:"recvId"`
-		SendTime           int64  `mapstructure:"sendTime"`
+		SendId             string                `mapstructure:"sendId"`
+		RecvId             string                `mapstructure:"recvId"`
+		RecvIds            []string              `mapstructure:"recvIds"`
+		MsgId              string                `mapstructure:"msgId"`
+		SendTime           int64                 `mapstructure:"sendTime"`
+		ReadRecords        map[string]string     `mapstructure:"readRecords"`
+		ContentType        constants.ContentType `mapstructure:"contentType"`
 
 		constants.MType `mapstructure:"mType"`
 		Content         string `mapstructure:"content"`
+	}
+
+	MarkRead struct {
+		constants.ChatType `mapstructure:"chatType"`
+		RecvId             string   `mapstructure:"recvId"`
+		ConversationId     string   `mapstructure:"conversationId"`
+		MsgIds             []string `mapstructure:"msgIds"`
 	}
 )

@@ -11,8 +11,8 @@ type ServiceContext struct {
 	FriendsModel       socialmodels.FriendsModel
 	FriendRequestModel socialmodels.FriendRequestsModel
 	GroupMembersModel  socialmodels.GroupMembersModel
-	GroupRequestModel  socialmodels.GroupRequestsModel
-	GroupModel         socialmodels.GroupsModel
+	GroupRequestsModel socialmodels.GroupRequestsModel
+	GroupsModel        socialmodels.GroupsModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -21,8 +21,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:             c,
 		FriendsModel:       socialmodels.NewFriendsModel(sqlConn, c.Cache),
 		FriendRequestModel: socialmodels.NewFriendRequestsModel(sqlConn, c.Cache),
-		GroupModel:         socialmodels.NewGroupsModel(sqlConn, c.Cache),
-		GroupRequestModel:  socialmodels.NewGroupRequestsModel(sqlConn, c.Cache),
+		GroupsModel:        socialmodels.NewGroupsModel(sqlConn, c.Cache),
+		GroupRequestsModel: socialmodels.NewGroupRequestsModel(sqlConn, c.Cache),
 		GroupMembersModel:  socialmodels.NewGroupMembersModel(sqlConn, c.Cache),
 	}
 }

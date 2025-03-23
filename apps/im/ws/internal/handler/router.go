@@ -30,6 +30,13 @@ func RegisterHandlers(srv *websocket.Server, svc *svc.ServerContext) {
 
 	srv.AddRoutes([]websocket.Route{
 		{
+			Method:  "conversation.markRead",
+			Handler: conversation.MarkRead(svc),
+		},
+	})
+
+	srv.AddRoutes([]websocket.Route{
+		{
 			Method:  "push",
 			Handler: push.Push(svc),
 		},

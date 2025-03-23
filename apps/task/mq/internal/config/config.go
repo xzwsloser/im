@@ -4,6 +4,7 @@ import (
 	"github.com/zeromicro/go-queue/kq"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/core/stores/redis"
+	"github.com/zeromicro/go-zero/zrpc"
 )
 
 /**
@@ -20,6 +21,7 @@ type Config struct {
 
 	// 转换任务配置信息
 	MsgChatTransfer kq.KqConf
+	MsgReadTransfer kq.KqConf
 
 	Redisx redis.RedisConf
 
@@ -31,4 +33,15 @@ type Config struct {
 	Ws struct {
 		Host string
 	}
+
+	MsgReadHandler struct {
+		// 是否开启
+		GroupMsgReadHandler int
+		// 延长时间
+		GroupMsgReadRecordDelayTime int
+		// 最大缓存条数
+		GroupMsgReadRecordDelayCount int
+	}
+
+	SocialRpc zrpc.RpcClientConf
 }

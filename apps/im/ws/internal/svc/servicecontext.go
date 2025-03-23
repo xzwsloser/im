@@ -16,6 +16,7 @@ type ServerContext struct {
 
 	immodels.ChatLogModel
 	mqclient.MsgChatTransferChatClient
+	mqclient.MsgReadTransferClient
 }
 
 func NewServerContext(c config.Config) *ServerContext {
@@ -25,5 +26,7 @@ func NewServerContext(c config.Config) *ServerContext {
 		ChatLogModel: immodels.MustChatLogModel(c.Mongo.Url, c.Mongo.Db),
 		MsgChatTransferChatClient: mqclient.NewMsgChatTransferClient(c.MsgChatTransfer.Addrs,
 			c.MsgChatTransfer.Topic),
+		MsgReadTransferClient: mqclient.NewMsgReadTransferClient(c.MsgReadTransfer.Addrs,
+			c.MsgReadTransfer.Topic),
 	}
 }

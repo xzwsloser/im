@@ -2,6 +2,10 @@ package group
 
 import (
 	"context"
+	"im-chat/apps/im/rpc/imclient"
+	"im-chat/apps/social/rpc/socialclient"
+	"im-chat/pkg/constants"
+	"im-chat/pkg/ctxdata"
 
 	"im-chat/apps/social/api/internal/svc"
 	"im-chat/apps/social/api/internal/types"
@@ -25,7 +29,28 @@ func NewGroupPutInHandleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *GroupPutInHandleLogic) GroupPutInHandle(req *types.GroupPutInHandleRep) (resp *types.GroupPutInHandleResp, err error) {
-	// todo: add your logic here and delete this line
+	uid := ctxdata.GetUid(l.ctx)
+	res, err := l.svcCtx.Social.GroupPutInHandle(l.ctx, &socialclient.GroupPutInHandleReq{
+		GroupReqId:   req.GroupReqId,
+		GroupId:      req.GroupId,
+		HandleUid:    uid,
+		HandleResult: req.HandleResult,
+	})
 
-	return
+	if constants.HandlerResult(req.HandleResult) != constants.PassHandlerResult {
+		return
+	}
+
+	// todo: 通过后的业务
+	if res.GroupId == "" {
+		return nil, err
+	}
+
+	_, err = l.svcCtx.Im.SetUpUserConversation(l.ctx, &imclient.SetUpUserConversationReq{
+		SendId:   uid,
+		RecvId:   req.GroupId,
+		ChatType: int32(constants.GroupChatType),
+	})
+
+	return nil, err
 }

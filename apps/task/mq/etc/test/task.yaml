@@ -1,6 +1,7 @@
 Name: task.mq
 ListenOn: 0.0.0.0:10091
 
+# 对于消息处理的消费者的配置信息
 MsgChatTransfer:
   Name: MsgChatTransfer
   Brokers:
@@ -9,6 +10,22 @@ MsgChatTransfer:
   Topic: msgChatTransfer
   Offset: first
   Consumers: 1
+
+# 对于标记已读和未读的消费者处理
+MsgReadTransfer:
+  Name: MsgReadTransfer
+  Brokers:
+    - 127.0.0.1:9092
+  Group: kafka
+  Topic: msgReadTransfer
+  Offset: first
+  Consumers: 1
+
+# 定义请求处理方式
+MsgReadHandler:
+  GroupMsgReadHandler: 1
+  GroupMsgReadRecordDelayTime: 60
+  GroupMsgReadRecordDelayCount: 2
 
 Redisx:
   Host: 127.0.0.1:6379
@@ -21,3 +38,9 @@ Mongo:
 
 Ws:
   Host: 127.0.0.1:10090
+
+SocialRpc:
+  Etcd:
+    Hosts:
+    - 127.0.0.1:2379
+    Key: social.rpc

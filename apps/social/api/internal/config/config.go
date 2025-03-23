@@ -14,4 +14,5 @@ type Config struct {
 
 	SocialRPC zrpc.RpcClientConf
 	UserRPC   zrpc.RpcClientConf
+	ImRpc     zrpc.RpcClientConf
 }

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/threading"
 	"net/http"
 	"sync"
 	"time"
@@ -51,6 +52,7 @@ type Server struct {
 	authentication Authentication
 	pattern        string
 	opt            *serverOption
+	*threading.TaskRunner
 	logx.Logger
 }
 
@@ -65,6 +67,7 @@ func NewServer(addr string, opts ...ServerOptions) *Server {
 		authentication: opt.Authentication,
 		opt:            &opt,
 		pattern:        opt.pattern,
+		TaskRunner:     threading.NewTaskRunner(opt.concurrency),
 	}
 }
 
